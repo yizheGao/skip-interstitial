@@ -1,0 +1,59 @@
+name: 停止页不跳了（疑似改版）
+description: 发现某个中间页/停止页不再自动跳转时，用这个模板把现场证据收集齐
+title: "[不跳] <域名> - <一句话现象>"
+labels: ["redesign"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        这类问题的修复速度完全取决于现场证据是否齐全。
+        请先按 `docs/DEBUG-zh.md` 在出问题的页面上取两个值，再填下面的表。
+  - type: input
+    id: url
+    attributes:
+      label: 出问题的完整 URL
+      description: 保留全部参数（bancode/bankey 等可以打码，但请保留字段名和长度）
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: 扩展/脚本版本
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: 浏览器与版本
+      placeholder: Chrome 141 / Edge 141 / Kiwi + Tampermonkey
+    validations:
+      required: true
+  - type: textarea
+    id: cgidata
+    attributes:
+      label: window.cgiData 的输出
+      description: 控制台执行 `copy(JSON.stringify(window.cgiData, null, 2))` 后粘贴。没有这个对象就写「undefined」
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: dom
+    attributes:
+      label: 页面里是否存在明文目标地址
+      description: 控制台执行 `copy(document.body.innerText)` 后粘贴（可以只贴含网址的那几行）
+      render: text
+    validations:
+      required: true
+  - type: dropdown
+    id: layer
+    attributes:
+      label: 你判断卡在哪一层（不确定就选「不确定」）
+      options:
+        - 不确定
+        - cgiData 里没有明文网址（可能被加密/编码）
+        - 有明文网址但页面没跳
+        - 有「继续访问」按钮但没被点击
+        - 完全拉黑页，连「申请恢复」链接都没有
+    validations:
+      required: true

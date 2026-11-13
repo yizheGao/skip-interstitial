@@ -1,0 +1,15 @@
+{
+  "name": "skip-interstitial",
+  "version": "1.0.0",
+  "private": true,
+  "description": "跳过 QQ / 微信 / 豆包·抖音 外链安全检测中间页，直接打开真实目标（Chrome MV3 扩展 + 油猴脚本）",
+  "scripts": {
+    "test": "node test/test-bypass.js && node test/test-extended.js",
+    "check": "node scripts/check.js",
+    "pack": "bash scripts/pack.sh"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}
