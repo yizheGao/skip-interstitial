@@ -68,18 +68,6 @@ current = 输入 URL
 
 ## 开发
 
-## 启用 CI
-
-CI 定义在 `docs/ci-workflow.example.yml`。仓库初始化时用的 token 没有 `workflow` scope，
-无法推送 `.github/workflows/` 下的文件，所以先放在 docs 下。启用方式：
-
-```bash
-mkdir -p .github/workflows && git mv docs/ci-workflow.example.yml .github/workflows/ci.yml
-git commit -m "ci: enable workflow" && git push
-```
-
-（推送需要带 `workflow` scope 的 token。）
-
 ## 目录
 
 ```
