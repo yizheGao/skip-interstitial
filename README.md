@@ -4,7 +4,7 @@
 
 Chrome / Edge（MV3 扩展）+ Tampermonkey（单文件用户脚本），两套实现逻辑同源。
 
-首个公开版本 **1.0.0**（内部迭代至 1.3.2，改动见 [CHANGELOG](CHANGELOG.md)）。
+当前公开版本为 **1.0.0**，功能变更见 [CHANGELOG](CHANGELOG.md)。
 
 > 中间页本质是 URL 包装器：它只阻止 App 内置浏览器跳转，目标站点在公网上照常可访问。
 > 本项目只做「从中间页里取出目标 URL → `location.replace`」，不调用任何检测接口、不伪造票据、不改目标站点。
@@ -65,8 +65,6 @@ current = 输入 URL
 安装 `userscript/tencent-bypass.user.js`，或从仓库原文新建脚本粘贴。Android 的 Kiwi / Via 等支持油猴的浏览器同样可用。
 
 ---
-
-## 开发
 
 ## 目录
 
