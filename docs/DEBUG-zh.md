@@ -1,19 +1,20 @@
-# 取现场证据（3 步）
+# 取现场证据（先脱敏，再提交）
 
-出现「不跳了」时，先在出问题的页面按 F12 → Console，执行：
+出现「不跳了」时，可以在出问题的页面按 F12 → Console 收集诊断信息。**页面数据和完整 URL 可能包含个人链接、账号标识或会话票据，不要未经检查就复制到公开 Issue。**
 
-```js
-// 1. 页面数据（插件 inject 层读的就是这个）
-copy(JSON.stringify(window.cgiData, null, 2));
+## 建议收集方式
 
-// 2. 页面可见文本（插件 content 层扫的就是这个）
-copy(document.body.innerText);
+先查看插件控制台输出的 `[skip-interstitial] no-target` 诊断行。它会省略查询参数，通常足以判断页面是否提供了可提取的数据。
 
-// 3. 页面源码片段（实体编码的 URL 在这里能看到）
-copy(document.documentElement.outerHTML.slice(0, 20000));
-```
+如仍需补充信息：
 
-三次 `copy()` 的内容粘到 issue 里即可。`bancode/bankey/click` 可以打码，但请保留字段名。
+1. 记录浏览器及版本、扩展/脚本版本，以及问题发生的大致时间。
+2. 只记录页面类型、相关字段名和字段类型；不要直接提交完整的 `window.cgiData`。
+3. 页面可见文本只摘录与跳转有关的几行，并先检查、替换其中的个人链接和敏感参数值。
+4. 不要提交完整 `document.documentElement.outerHTML`。确有必要时，只截取最小相关片段，并移除个人信息、令牌、完整目标链接及其他敏感值。
+5. URL 通常只需提供域名、路径和参数名称。参数值应删除或替换为占位符；不要提交原始分享链接或会话票据。
+
+提交前请再次检查所有内容。尤其注意 `bancode`、`bankey`、`click`、`midpagecode` 等参数，以及目标 URL 中可能包含的个人标识或访问凭据。字段名和大致结构可以保留，真实值不需要公开。
 
 ## 快速判断卡在哪一层
 
@@ -26,10 +27,11 @@ copy(document.documentElement.outerHTML.slice(0, 20000));
 
 ## 开发者本地复现
 
+如需用桌面 UA 复现，可在本地终端请求页面。**完整 URL 可能含有一次性票据，不要把未经脱敏的命令、终端输出或响应内容贴到公开 Issue。**
+
 ```bash
-# 用桌面 UA 直接拉页面，看服务端返回的 cgiData
 curl -sS -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/141.0 Safari/537.36" \
-  "<出问题的完整 URL>" | grep -o 'cgiData = {[^<]*'
+  "<本地使用的完整 URL>" | grep -o 'cgiData = {[^<]*'
 ```
 
-拿到结构后，在 `test/test-extended.js` 里加一条同形态的用例，再改代码——先有红灯，再让它变绿。
+拿到结构后，在 `test/test-extended.js` 里添加一条使用虚构数据的回归用例，再改代码：先有红灯，再让它变绿。测试夹具不得包含真实用户链接或会话票据。
