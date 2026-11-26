@@ -1,18 +1,19 @@
 name: 停止页不跳了（疑似改版）
-description: 发现某个中间页/停止页不再自动跳转时，用这个模板把现场证据收集齐
+description: 发现某个中间页/停止页不再自动跳转时，提交脱敏后的现场信息
 title: "[不跳] <域名> - <一句话现象>"
 labels: ["redesign"]
 body:
   - type: markdown
     attributes:
       value: |
-        这类问题的修复速度完全取决于现场证据是否齐全。
-        请先按 `docs/DEBUG-zh.md` 在出问题的页面上取两个值，再填下面的表。
+        请先阅读 `docs/DEBUG-zh.md`。**不要提交未经脱敏的完整 URL、页面源码、账号信息或会话票据。**
+        URL 只保留域名、路径和参数名称；敏感参数值及个人链接请删除或替换为占位符。
   - type: input
     id: url
     attributes:
-      label: 出问题的完整 URL
-      description: 保留全部参数（bancode/bankey 等可以打码，但请保留字段名和长度）
+      label: 脱敏后的问题 URL
+      description: 只需域名、路径和参数名称；删除所有参数值、个人标识和令牌。不要粘贴原始分享链接。
+      placeholder: https://example.com/path?target=[已脱敏]
     validations:
       required: true
   - type: input
@@ -32,19 +33,19 @@ body:
   - type: textarea
     id: cgidata
     attributes:
-      label: window.cgiData 的输出
-      description: 控制台执行 `copy(JSON.stringify(window.cgiData, null, 2))` 后粘贴。没有这个对象就写「undefined」
+      label: 相关 cgiData 字段（可选，必须脱敏）
+      description: 不要粘贴完整 window.cgiData。只提供相关字段名、字段类型和虚构/脱敏后的示例值。
       render: json
     validations:
-      required: true
+      required: false
   - type: textarea
     id: dom
     attributes:
-      label: 页面里是否存在明文目标地址
-      description: 控制台执行 `copy(document.body.innerText)` 后粘贴（可以只贴含网址的那几行）
+      label: 与跳转有关的页面文本（可选，必须脱敏）
+      description: 只摘录必要的几行；删除完整目标链接、个人信息和所有敏感参数值。
       render: text
     validations:
-      required: true
+      required: false
   - type: dropdown
     id: layer
     attributes:

@@ -2,14 +2,12 @@
 
 ## 1.0.0 — 2026-11-13（首个公开版本）
 
-内部开发迭代至 1.3.2，本版本合并全部修复后重新编号发布。
-
 **支持面**
 
 - QQ 中间页 `c.pc.qq.com/{middlect,middlem,middleb,index,ios,pc,android}.html`：`pfurl` 参数提取
 - 微信停止页三种形态：`cgiData.url`（确认页）、`cgiData.links` 里的 base64 申诉链接（完全拉黑）、`cgiData.type=empty` 的 `desc`（实体编码）
 - 字节 `link.wtturl.cn/?app_id=…&target=…`
-- 腾讯页 ↔ 字节页互相套套娃，递归解包上限 5 层
+- 腾讯页 ↔ 字节页互相套娃，递归解包上限 5 层
 - `kf.qq.com` / `urlsec.qq.com` 白名单排除，避免误跳客服页
 
 **实现要点**
