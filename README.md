@@ -106,19 +106,6 @@ npm run pack      # 生成 dist/skip-interstitial-<version>.zip
 4. 腾讯/字节改版后参数名可能变化：改 `MIDDLE_HOSTS` / `PARAM_NAMES` / `FUNCTION_HOSTS` 即可，四份实现要同步（见下）。
 5. `link.wtturl.cn` 缺 `app_id` 会直接返回 400，手工构造验证链接时必须带上真实 `app_id`。
 
----
-
-## 与同类项目的差异
-
-| 项目 | 覆盖 | 本项目差异 |
-|---|---|---|
-| [OldPanda/Open-the-F-king-URL-Right-Now](https://github.com/OldPanda/Open-the-F-king-URL-Right-Now)（569★） | 70+ 站点，含 `c.pc.qq.com` 与 `weixin110` | 它是一站一规则；本项目做**腾讯↔字节互相套娃的递归解包**，并覆盖 `wtturl.cn` 与 block 页 base64 |
-| [galaxy-sea/AutoRedirector](https://github.com/galaxy-sea/AutoRedirector) | 60+ 站点，MV3 | 同上；且本项目同时提供油猴单文件版 |
-| [AFindex/QQ-Link-Unblocker](https://github.com/AFindex/QQ-Link-Unblocker) | 仅 QQ | 覆盖微信 + 字节 |
-| [baranwang/break-weixin110](https://github.com/baranwang/break-weixin110) | 服务端代理 + Surge/QX 重写 | 方向互补：它覆盖 App 内置浏览器，本项目覆盖桌面浏览器且不依赖任何服务端 |
-| [MakiseKurisu25/qrjump](https://github.com/MakiseKurisu25/qrjump) | Android 二维码解析 | 非同类；它证明了 `wtturl` 的参数形态（`app_id` + `target`） |
-
-关于 `verifywebmaster` base64 申诉还原：在上述仓库里 `grep -r verifywebmaster` 为空，这段没有现成实现可参考。
 
 ---
 
